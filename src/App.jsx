@@ -5,7 +5,7 @@ import './App.css'; // Asegúrate de tener este archivo para estilos globales
 
 function App() {
   return (
-    <div>
+    <div className="d-flex flex-column min-vh-100">
       <Home />
     </div>
   );

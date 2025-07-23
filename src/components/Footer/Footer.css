@@ -1,0 +1,40 @@
+.footer-links .footer-link {
+  transition: color 0.2s, text-decoration 0.2s;
+  position: relative;
+  font-weight: 500;
+}
+
+.footer-links .footer-link:focus,
+.footer-links .footer-link:hover {
+  color: #ff69b4 !important;
+  text-decoration: underline;
+}
+
+.footer-links .footer-icon {
+  font-size: 1.3em;
+  vertical-align: middle;
+  margin-right: 2px;
+  transition: color 0.2s;
+}
+
+.footer-links .footer-link:hover .footer-icon,
+.footer-links .footer-link:focus .footer-icon {
+  color: #ff69b4;
+}
+
+.footer-sep {
+  color: #d48ca6;
+  font-weight: bold;
+  user-select: none;
+}
+
+.footer-full {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
