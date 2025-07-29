@@ -1,14 +1,21 @@
-import React from 'react';
-import Home from './page/Home';
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./page/Home";
+import Proyecto from "./page/Proyecto";
 import "bootstrap/dist/css/bootstrap.min.css";
-import './App.css'; // Asegúrate de tener este archivo para estilos globales
+import "./App.css";
 
 function App() {
   return (
-    <div className="d-flex flex-column min-vh-100">
-      <Home />
-    </div>
+    <BrowserRouter>
+      <div className="d-flex flex-column min-vh-100">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/proyecto/:id" element={<Proyecto />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }
 
-export default App
+export default App;
