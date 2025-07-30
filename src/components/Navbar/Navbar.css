@@ -6,3 +6,9 @@
 footer {
   font-size: 0.9rem;
 }
+
+.btn-buscar:hover, .btn-buscar:focus {
+  background-color: #000000 !important; /* Rosa fuerte */
+  color: #fff !important;
+  border-color: #ff69b4 !important;
+} 

@@ -4,6 +4,7 @@ import Home from "./page/Home";
 import Proyecto from "./page/Proyecto";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
+import "@fortawesome/fontawesome-free/css/all.min.css";
 
 function App() {
   return (
