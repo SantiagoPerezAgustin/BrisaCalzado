@@ -1,10 +1,11 @@
 import Carousel from "react-bootstrap/Carousel";
-import ExampleCarouselImage from "../ExampleCarouselImage/ExampleCarouselImage";
+import ExampleCarouselImage from "./ExampleCarouselImage";
 
 function Carousels() {
   return (
     <Carousel fade>
       <Carousel.Item>
+        <ExampleCarouselImage text="First slide" />
         <Carousel.Caption>
           <h3>First slide label</h3>
           <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>

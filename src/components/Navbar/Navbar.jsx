@@ -21,7 +21,7 @@ function MyNavbar() {
             <Nav.Link href="/">Inicio</Nav.Link>
             <Nav.Link href="/contacto">Contacto</Nav.Link>
 
-            <NavDropdown title="Colecciones" id="navbarScrollingDropdown">
+            <NavDropdown title="Productos" id="navbarScrollingDropdown">
               <NavDropdown.Item href="/primavera">
                 Primavera-Verano
               </NavDropdown.Item>
