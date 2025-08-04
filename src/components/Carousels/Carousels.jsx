@@ -1,8 +1,15 @@
+import React, { useEffect } from "react";
 import Carousel from "react-bootstrap/Carousel";
 import ExampleCarouselImage from "./ExampleCarouselImage";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 function Carousels() {
+  useEffect(() => {
+    AOS.init({ duration: 1000 });
+  }, []);
   return (
+    <div data-aos="fade-left">
     <Carousel fade>
       <Carousel.Item>
         <ExampleCarouselImage text="First slide" />
@@ -28,6 +35,7 @@ function Carousels() {
         </Carousel.Caption>
       </Carousel.Item>
     </Carousel>
+    </div>
   );
 }
 

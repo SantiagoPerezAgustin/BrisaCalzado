@@ -5,6 +5,7 @@ import Proyecto from "./page/Proyecto";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import SobreNosotrosPage from "./page/SobreNosotrosPage";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/proyecto/:id" element={<Proyecto />} />
+          <Route path="/sobre-nosotros" element={<SobreNosotrosPage />} />
         </Routes>
       </div>
     </BrowserRouter>

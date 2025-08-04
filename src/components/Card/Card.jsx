@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import proyectos from "../../data/Proyecto";
 import "./Card.css";
 import { FaTshirt, FaShoePrints, FaUserFriends, FaGem } from "react-icons/fa";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 const categorias = [
   { nombre: "Todos", icono: <FaGem /> },
@@ -19,18 +21,12 @@ export const Card = () => {
       ? proyectos
       : proyectos.filter((proyecto) => proyecto.categoria === filtro);
 
+  useEffect(() => {
+    AOS.init({ duration: 1000 });
+  }, []);
+
   return (
     <>
-      {/* Bienvenida: FUERA del container-fluid, arriba del todo */}
-      <div className="text-center  py-5 mt-5">
-        <h1 style={{ fontWeight: "700", color: "#ff1493" }}>
-          Bienvenidos a Brisa
-        </h1>
-        <p style={{ fontSize: "1.2rem", color: "#444" }}>
-          Moda pensada para destacar tu estilo ✨
-        </p>
-      </div>
-
       <div className="container-fluid px-0 categorias-container">
         {/* Filtros */}
         <div className="text-center mb-5">
@@ -57,28 +53,30 @@ export const Card = () => {
         </div>
 
         {/* Tarjetas */}
-        <div className="row">
-          {proyectosFiltrados.map(({ id, imagen, titulo, descripcion }) => (
-            <div className="col-md-4 mb-4" key={id}>
-              <Link
-                to={`/proyecto/${id}`}
-                className="text-decoration-none text-dark"
-              >
-                <div className="card h-100 border-0 shadow-sm custom-card">
-                  <img
-                    src={imagen}
-                    alt={titulo}
-                    className="card-img-top"
-                    style={{ objectFit: "cover", height: "300px" }}
-                  />
-                  <div className="card-body">
-                    <h5 className="card-title">{titulo}</h5>
-                    <p className="card-text small">{descripcion}</p>
+        <div data-aos="zoom-in">
+          <div className="row">
+            {proyectosFiltrados.map(({ id, imagen, titulo, descripcion }) => (
+              <div className="col-md-4 mb-4" key={id}>
+                <Link
+                  to={`/proyecto/${id}`}
+                  className="text-decoration-none text-dark"
+                >
+                  <div className="card h-100 border-0 shadow-sm custom-card">
+                    <img
+                      src={imagen}
+                      alt={titulo}
+                      className="card-img-top"
+                      style={{ objectFit: "cover", height: "300px" }}
+                    />
+                    <div className="card-body">
+                      <h5 className="card-title">{titulo}</h5>
+                      <p className="card-text small">{descripcion}</p>
+                    </div>
                   </div>
-                </div>
-              </Link>
-            </div>
-          ))}
+                </Link>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </>
