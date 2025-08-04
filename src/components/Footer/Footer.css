@@ -38,3 +38,16 @@
   box-sizing: border-box;
   overflow-x: hidden;
 }
+
+.whatsapp-float {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #25d366;
+  color: white;
+  font-size: 1.8rem;
+  padding: 12px 14px;
+  border-radius: 50%;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+}

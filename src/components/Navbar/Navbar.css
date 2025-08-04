@@ -1,14 +1,78 @@
 .navbar-pink {
-    background-color: #ffb6c1 !important; /* Rosado claro */
-  }
-  
-
-footer {
-  font-size: 0.9rem;
+  background: linear-gradient(90deg, #ffb6c1 80%, #ffe4ec 100%) !important;
+  box-shadow: 0 2px 8px #a0527820;
+  border-bottom: 2px solid #ff69b4;
 }
 
-.btn-buscar:hover, .btn-buscar:focus {
-  background-color: #000000 !important; /* Rosa fuerte */
+.logo-navbar {
+  font-size: 2rem;
+  color: #a05278;
+  margin-right: 8px;
+}
+
+.nav-link-custom {
+  color: #111 !important;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: color 0.2s, background 0.2s;
+  border-radius: 20px;
+  padding: 0.5em 1.2em !important;
+  margin: 0 2px;
+  text-align: center; /* Centra el texto dentro del botón */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-link-custom:hover,
+.nav-link-custom:focus {
+  color: #111 !important; /* Mantiene la letra negra al pasar el mouse */
+  background-color: #ff69b4 !important;
+  box-shadow: 0 2px 8px #ff69b480;
+}
+
+.nav-link-custom:hover,
+.nav-link-custom:focus {
+  color: #fff !important;
+  background-color: #ff69b4 !important;
+  box-shadow: 0 2px 8px #ff69b480;
+}
+
+.dropdown-custom {
+  color: #111 !important;
+  font-weight: 500;
+  transition: background 0.2s, color 0.2s;
+}
+
+.dropdown-custom:hover,
+.dropdown-custom:focus {
+  background-color: #040001 !important;
+  color: #ff69b4 !important;
+}
+
+.search-navbar {
+  border-radius: 20px;
+  border: 2px solid #ff69b4;
+  transition: border-color 0.2s;
+  background: #fff;
+}
+
+.search-navbar:focus {
+  border-color: #a05278;
+  box-shadow: 0 0 0 0.2rem #ffb6c180;
+}
+
+.btn-buscar {
+  color: #ff69b4 !important;
+  border-color: #ff69b4 !important;
+  background: #fff !important;
+  border-radius: 20px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.btn-buscar:hover,
+.btn-buscar:focus {
+  background: #ff69b4 !important;
   color: #fff !important;
   border-color: #ff69b4 !important;
-} 
+}
