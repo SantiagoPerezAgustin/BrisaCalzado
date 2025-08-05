@@ -20,7 +20,7 @@ function MyNavbar() {
         <Navbar.Toggle aria-controls="navbarScroll" className="border-0" />
         <Navbar.Collapse id="navbarScroll">
           <Nav
-            className="me-auto my-2 my-lg-0 gap-2"
+            className="me-auto my-2 my-lg-0 gap-2 align-items-center"
             style={{ maxHeight: "100px" }}
             navbarScroll
           >

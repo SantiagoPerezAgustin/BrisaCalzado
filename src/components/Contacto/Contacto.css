@@ -1,0 +1,19 @@
+.text-pink {
+  color: #ff69b4;
+}
+
+.contacto-section input,
+.contacto-section textarea {
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
+
+.contacto-section input:focus,
+.contacto-section textarea:focus {
+  border-color: #ff69b4;
+  box-shadow: 0 0 0 0.2rem rgba(255, 105, 180, 0.25);
+}
+
+.contacto-rapido-section a i {
+  font-size: 1.2rem;
+}
