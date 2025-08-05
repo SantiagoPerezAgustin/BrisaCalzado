@@ -5,7 +5,7 @@ function ExampleCarouselImage({ text }) {
     <div
       style={{
         width: "100%",
-        height: "300px",
+        height: "400px",
         background: "#ffe4ec",
         display: "flex",
         alignItems: "center",

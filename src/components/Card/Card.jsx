@@ -6,13 +6,6 @@ import { FaTshirt, FaShoePrints, FaUserFriends, FaGem } from "react-icons/fa";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
-const categorias = [
-  { nombre: "Todos", icono: <FaGem /> },
-  { nombre: "Botas", icono: <FaShoePrints /> },
-  { nombre: "Remeras", icono: <FaTshirt /> },
-  { nombre: "Accesorios", icono: <FaUserFriends /> },
-];
-
 export const Card = () => {
   const [filtro, setFiltro] = useState("Todos");
 
@@ -28,32 +21,8 @@ export const Card = () => {
   return (
     <>
       <div className="container-fluid px-0 categorias-container">
-        {/* Filtros */}
-        <div className="text-center mb-5">
-          <h2 className="mb-4" style={{ fontWeight: "600", color: "#ff69b4" }}>
-            Explorá por categoría 💖
-          </h2>
-          <div className="d-flex flex-wrap justify-content-center gap-3">
-            {categorias.map((cat) => (
-              <button
-                key={cat.nombre}
-                onClick={() => setFiltro(cat.nombre)}
-                className={`btn d-flex align-items-center gap-2 px-4 py-2 rounded-pill fw-bold ${
-                  filtro === cat.nombre ? "btn-dark" : "btn-outline-dark"
-                }`}
-                style={{
-                  fontSize: "1rem",
-                  transition: "all 0.3s ease-in-out",
-                }}
-              >
-                {cat.icono} {cat.nombre}
-              </button>
-            ))}
-          </div>
-        </div>
-
         {/* Tarjetas */}
-        <div data-aos="zoom-in">
+        <div className="mt-4" data-aos="zoom-in">
           <div className="row">
             {proyectosFiltrados.map(({ id, imagen, titulo, descripcion }) => (
               <div className="col-md-4 mb-4" key={id}>
