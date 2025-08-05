@@ -12,7 +12,7 @@ function HeroBanner() {
       className="hero-banner d-flex align-items-center justify-content-center text-center"
       style={{
         backgroundImage:
-          "url('https://images.unsplash.com/photos/woman-in-pink-sleeveless-top-swmkkkJL7jg?auto=format&fit=crop&w=1600&q=80')",
+          "url('https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=1600&q=80')",
       }}
       data-aos="fade-up"
     >
