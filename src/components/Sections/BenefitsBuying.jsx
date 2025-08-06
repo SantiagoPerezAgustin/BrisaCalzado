@@ -14,10 +14,6 @@ function BenefitsBuying() {
         </h2>
         <div className="row justify-content-center">
           <div className="col-md-3 mb-4" data-aos="fade-right">
-            <i className="fas fa-shipping-fast fa-2x text-pink"></i>
-            <h5 className="mt-2">Envíos rápidos</h5>
-          </div>
-          <div className="col-md-3 mb-4" data-aos="fade-up">
             <i className="fas fa-smile-beam fa-2x text-pink"></i>
             <h5 className="mt-2">Atención personalizada</h5>
           </div>
