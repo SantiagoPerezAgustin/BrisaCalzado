@@ -6,6 +6,43 @@
   text-align: justify;
 }
 
+.sobre-nosotros-section {
+  padding-top: 140px !important; /* espacio debajo del navbar fijo */
+}
+
+.sobre-nosotros-img {
+  width: 100%;
+  height: 350px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 12px;
+  border: 3px solid #ffe4ec;
+  box-shadow: 0 10px 30px rgba(255, 105, 180, 0.25);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+
+.sobre-nosotros-img:hover {
+  transform: scale(1.03);
+  box-shadow: 0 16px 40px rgba(255, 105, 180, 0.4);
+}
+
 .sobre-nosotros-section ul i {
   font-size: 1.2rem;
+}
+
+/* Responsive ajustes si querés más espacio entre columnas en mobile */
+@media (max-width: 767px) {
+  .sobre-nosotros-section {
+    padding-top: 160px;
+    padding-bottom: 60px;
+  }
+
+  .sobre-nosotros-img {
+    margin-bottom: 20px;
+  }
+
+  .lead, .text-muted {
+    font-size: 1rem;
+  }
 }

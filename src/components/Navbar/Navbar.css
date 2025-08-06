@@ -24,6 +24,16 @@
   justify-content: center;
 }
 
+.logo-navbar-img {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+  border-radius: 8px;
+  background: white;
+  padding: 5px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
 .nav-link-custom:hover,
 .nav-link-custom:focus {
   color: #111 !important; /* Mantiene la letra negra al pasar el mouse */
@@ -46,8 +56,8 @@
 
 .dropdown-custom:hover,
 .dropdown-custom:focus {
-  background-color: #040001 !important;
-  color: #ff69b4 !important;
+  background-color: #ff69b4 !important;
+  color: #fff !important;
 }
 
 .search-navbar {

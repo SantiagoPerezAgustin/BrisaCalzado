@@ -4,6 +4,7 @@ import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import LogoBrisa from "../../assets/Image log Brisa.jpg"
 import "./Navbar.css";
 
 function MyNavbar() {
@@ -14,8 +15,8 @@ function MyNavbar() {
           href="/"
           className="fw-bold text-black d-flex align-items-center gap-2"
         >
-          <i className="fas fa-shoe-prints logo-navbar"></i>
-          BRISA
+          <img src={LogoBrisa} alt="Logo Brisa" className="logo-navbar-img" />
+          <span className="ms-2">BRISA</span>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" className="border-0" />
         <Navbar.Collapse id="navbarScroll">
@@ -27,7 +28,7 @@ function MyNavbar() {
             <Nav.Link href="/" className="nav-link-custom">
               Inicio
             </Nav.Link>
-            <Nav.Link href="/contacto" className="nav-link-custom">
+            <Nav.Link href="/sobre-nosotros" className="nav-link-custom">
               Contacto
             </Nav.Link>
             <NavDropdown
