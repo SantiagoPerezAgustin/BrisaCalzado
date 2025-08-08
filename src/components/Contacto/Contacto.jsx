@@ -20,7 +20,7 @@ function Contacto() {
 
         <div className="d-flex justify-content-center gap-4 flex-wrap">
           <a
-            href="https://wa.me/5491234567890?text=¡Hola!%20Quiero%20hacer%20una%20consulta%20sobre%20un%20producto"
+            href="https://wa.me/5493415039633?text=¡Hola!%20Quiero%20hacer%20una%20consulta%20sobre%20un%20producto"
             target="_blank"
             rel="noopener noreferrer"
             className="btn btn-success px-4 py-2 rounded-pill fw-bold"
