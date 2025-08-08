@@ -4,7 +4,7 @@ import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import LogoBrisa from "../../assets/Image log Brisa.jpg"
+import LogoBrisa from "../../assets/image transparente.jpg"
 import "./Navbar.css";
 
 function MyNavbar() {
@@ -14,6 +14,7 @@ function MyNavbar() {
         <Navbar.Brand
           href="/"
           className="fw-bold text-black d-flex align-items-center gap-2"
+          style={{ backgroundColor: "transparent" }}
         >
           <img src={LogoBrisa} alt="Logo Brisa" className="logo-navbar-img" />
           <span className="ms-2">BRISA</span>
