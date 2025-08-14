@@ -1,27 +1,11 @@
 const express = require("express");
-const { Categoria } = require("../models");
 const router = express.Router();
+const categoriaController = require("../controllers/CategoriaControllers");
 
-// Obtener todas las categorías
-router.get("/", async (req, res) => {
-  try {
-    const categorias = await Categoria.findAll({
-      include: ["productos"], // Incluye los productos relacionados
-    });
-    res.json(categorias);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
-// Crear categoría
-router.post("/", async (req, res) => {
-  try {
-    const categoria = await Categoria.create(req.body);
-    res.status(201).json(categoria);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-});
+router.get("/", categoriaController.getCategorias);
+router.get("/:id", categoriaController.getCategoriaById);
+router.post("/", categoriaController.createCategoria);
+router.put("/:id", categoriaController.updateCategoria);
+router.delete("/:id", categoriaController.deleteCategoria);
 
 module.exports = router;
