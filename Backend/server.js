@@ -8,7 +8,7 @@ app.use(express.json());
 
 // Rutas
 app.use("/api/productos", require("./routes/productos"));
-app.use("/api/categorias", require("./routes/categorias"));
+app.use("/api/categoria", require("./routes/categoria"));
 
 app.use(
   cors({
