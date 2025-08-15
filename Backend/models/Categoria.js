@@ -6,7 +6,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      descripcion: DataTypes.TEXT,
+      descripcion: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
     },
     {
       tableName: "Categorias",
