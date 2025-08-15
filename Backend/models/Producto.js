@@ -6,15 +6,25 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
       },
+      descripcion: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
       precio: {
-        type: DataTypes.DECIMAL(10, 2),
+        type: DataTypes.FLOAT,
         allowNull: false,
       },
-      descripcion: DataTypes.TEXT,
-      imagen: DataTypes.STRING,
       stock: {
         type: DataTypes.INTEGER,
-        defaultValue: 0,
+        allowNull: false,
+      },
+      categoriaId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: "Categorias",
+          key: "id",
+        },
       },
     },
     {

@@ -1,16 +1,11 @@
-const express = require('express');
-const { Producto } = require('../models');
+const express = require("express");
 const router = express.Router();
+const productosController = require("../controllers/productosControllers");
 
-router.get('/', async (req, res) => {
-  try {
-    const productos = await Producto.findAll({
-      include: ['categoria']
-    });
-    res.json(productos);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
+router.get("/", productosController.getProductos);
+router.get("/:id", productosController.getProductoById);
+router.post("/", productosController.createProducto);
+router.put("/:id", productosController.updateProducto);
+router.delete("/:id", productosController.deleteProducto);
 
 module.exports = router;
