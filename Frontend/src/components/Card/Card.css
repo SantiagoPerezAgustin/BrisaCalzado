@@ -1,24 +1,72 @@
+/* Card.css */
+:root {
+  --pink-100: #f8bbd0;
+  --pink-200: #f48fb1;
+  --pink-300: #f06292;
+  --pink-400: #ec407a;
+  --pink-500: #e91e63;
+  --pink-600: #d81b60;
+  --pink-700: #c2185b;
+  --pink-800: #ad1457;
+  --pink-900: #880e4f;
+}
+
+.btn-pink {
+  background-color: var(--pink-500);
+  border-color: var(--pink-500);
+  color: white;
+}
+
+.btn-pink:hover {
+  background-color: var(--pink-600);
+  border-color: var(--pink-600);
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(216, 27, 96, 0.3);
+}
+
+.btn-outline-pink {
+  color: var(--pink-500);
+  border-color: var(--pink-500);
+}
+
+.btn-outline-pink:hover {
+  background-color: var(--pink-500);
+  border-color: var(--pink-500);
+  color: white;
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(216, 27, 96, 0.3);
+}
+
 .custom-card {
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
-  border: 2px solid transparent;
-  border-radius: 10px;
+  transition: all 0.3s ease;
+  border: 2px solid var(--pink-100);
+  border-radius: 15px;
+  overflow: hidden;
 }
 
 .custom-card:hover {
-  border: 2px solid #ff69b4; /* Rosa fuerte */
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.4); /* Sombra negra */
-  transform: scale(1.02); /* Ligero zoom */
+  border-color: var(--pink-400);
+  box-shadow: 0 10px 20px rgba(244, 143, 177, 0.2);
+  transform: translateY(-5px);
 }
 
-.categorias-container{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 20px;
-    padding-top: 10px;
+.product-image {
+  height: 200px;
+  object-fit: cover;
+  transition: transform 0.5s ease;
 }
 
-button:hover {
+.custom-card:hover .product-image {
   transform: scale(1.05);
-  box-shadow: 0 4px 8px rgba(255, 105, 180, 0.3);
+}
+
+/* Animaciones personalizadas */
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.pulse-animation {
+  animation: pulse 2s infinite;
 }
