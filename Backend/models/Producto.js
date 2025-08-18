@@ -26,6 +26,11 @@ module.exports = (sequelize, DataTypes) => {
           key: "id",
         },
       },
+      imagen: {
+        // <--- Nuevo campo
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
     },
     {
       tableName: "Productos",

@@ -18,19 +18,26 @@ exports.getProductoById = async (req, res) => {
     const producto = await Producto.findByPk(req.params.id, {
       include: [{ model: Categoria, as: "categoria" }],
     });
-    if (!producto)
+    if (!producto) {
       return res.status(404).json({ error: "Producto no encontrado" });
+    }
     res.json(producto);
   } catch (error) {
     res.status(500).json({ error: "Error al obtener el producto" });
   }
 };
 
-// Crear un nuevo producto
+// Obtener un producto por ID
 exports.createProducto = async (req, res) => {
   try {
-    const { nombre, descripcion, precio, stock, categoriaId } = req.body;
-    if (!nombre || !precio || !stock || !categoriaId) {
+    const { nombre, descripcion, precio, stock, categoriaId, imagen } =
+      req.body;
+    if (
+      !nombre ||
+      precio === undefined ||
+      stock === undefined ||
+      !categoriaId
+    ) {
       return res.status(400).json({ error: "Faltan campos obligatorios" });
     }
     const nuevoProducto = await Producto.create({
@@ -39,17 +46,19 @@ exports.createProducto = async (req, res) => {
       precio,
       stock,
       categoriaId,
+      imagen,
     });
     res.status(201).json(nuevoProducto);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ error: "Error al crear el producto" });
   }
 };
 
-// Actualizar un producto existente
 exports.updateProducto = async (req, res) => {
   try {
-    const { nombre, descripcion, precio, stock, categoriaId } = req.body;
+    const { nombre, descripcion, precio, stock, categoriaId, imagen } =
+      req.body;
     const producto = await Producto.findByPk(req.params.id);
     if (!producto)
       return res.status(404).json({ error: "Producto no encontrado" });
@@ -59,6 +68,7 @@ exports.updateProducto = async (req, res) => {
     producto.precio = precio ?? producto.precio;
     producto.stock = stock ?? producto.stock;
     producto.categoriaId = categoriaId ?? producto.categoriaId;
+    producto.imagen = imagen ?? producto.imagen;
 
     await producto.save();
     res.json(producto);
