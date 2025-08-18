@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const app = express();
 
 // Importar rutas
@@ -7,6 +8,8 @@ const productosRoutes = require("./routes/productos");
 
 // Middlewares
 app.use(express.json()); // Para parsear JSON
+
+app.use(cors());
 
 // Rutas
 app.use("/api/categorias", categoriaRoutes);
