@@ -63,16 +63,18 @@ exports.updateProducto = async (req, res) => {
     if (!producto)
       return res.status(404).json({ error: "Producto no encontrado" });
 
-    producto.nombre = nombre ?? producto.nombre;
-    producto.descripcion = descripcion ?? producto.descripcion;
-    producto.precio = precio ?? producto.precio;
-    producto.stock = stock ?? producto.stock;
-    producto.categoriaId = categoriaId ?? producto.categoriaId;
-    producto.imagen = imagen ?? producto.imagen;
+    // Solo actualiza si el campo viene en el body (permite 0)
+    if (nombre !== undefined) producto.nombre = nombre;
+    if (descripcion !== undefined) producto.descripcion = descripcion;
+    if (precio !== undefined) producto.precio = precio;
+    if (stock !== undefined) producto.stock = stock;
+    if (categoriaId !== undefined) producto.categoriaId = categoriaId;
+    if (imagen !== undefined) producto.imagen = imagen;
 
     await producto.save();
     res.json(producto);
   } catch (error) {
+    console.error(error);
     res.status(500).json({ error: "Error al actualizar el producto" });
   }
 };
