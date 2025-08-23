@@ -33,18 +33,11 @@ export const ProductsGrid = () => {
   const [productos, setProductos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [filtro, setFiltro] = useState("Todos");
+  const [filtro, setFiltro] = useState(0);
   const [hoveredCard, setHoveredCard] = useState(null);
   const [favoritos, setFavoritos] = useState([]);
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
-
-  const categorias = [
-    { nombre: "Todos", icono: <FaGem />, id: "Todos" },
-    { nombre: "Ropa", icono: <FaTshirt />, id: "Ropa" },
-    { nombre: "Calzado", icono: <FaShoePrints />, id: "Calzado" },
-    { nombre: "Accesorios", icono: <FaUserFriends />, id: "Accesorios" },
-  ];
 
   useEffect(() => {
     const fetchProductos = async () => {
@@ -114,14 +107,34 @@ export const ProductsGrid = () => {
     return String(categoria);
   };
 
+  // Obtener categorías únicas desde los productos
+  const categoriasUnicas = [
+    { id: 0, nombre: "Todos" },
+    ...Array.from(
+      new Map(
+        productos
+          .filter(
+            (p) =>
+              p.categoria && typeof p.categoria === "object" && p.categoria.id
+          )
+          .map((p) => [
+            p.categoria.id,
+            { id: p.categoria.id, nombre: p.categoria.nombre },
+          ])
+      ).values()
+    ),
+  ];
+
   // Filtrar productos según la categoría seleccionada
   const productosFiltrados =
-    filtro === "Todos"
+    filtro === 0
       ? productos
-      : productos.filter((producto) => {
-          const categoriaProducto = normalizarCategoria(producto.categoria);
-          return categoriaProducto === filtro;
-        });
+      : productos.filter(
+          (producto) =>
+            producto.categoria &&
+            typeof producto.categoria === "object" &&
+            producto.categoria.id === filtro
+        );
 
   if (loading) {
     return (
@@ -173,11 +186,9 @@ export const ProductsGrid = () => {
         </Toast.Header>
         <Toast.Body>{toastMessage}</Toast.Body>
       </Toast>
-
       <h2 className="text-center mb-4 fw-bold" style={{ color: "#d63384" }}>
         Nuestros Productos
       </h2>
-
       {/* Mostrar categorías disponibles desde la API (para debugging) */}
       {productos.length > 0 && (
         <div className="text-center mb-3">
@@ -191,30 +202,19 @@ export const ProductsGrid = () => {
           </small>
         </div>
       )}
-
       {/* Filtros por categoría */}
       <div className="d-flex flex-wrap justify-content-center gap-3 mb-5">
-        {categorias.map((cat) => (
+        {categoriasUnicas.map((cat) => (
           <Button
-            key={cat.nombre}
-            variant={filtro === cat.nombre ? "pink" : "outline-pink"}
-            onClick={() => setFiltro(cat.nombre)}
+            key={cat.id}
+            variant={filtro === cat.id ? "pink" : "outline-pink"}
+            onClick={() => setFiltro(cat.id)}
             className="d-flex align-items-center gap-2 rounded-pill px-4"
           >
-            {cat.icono}
             {cat.nombre}
           </Button>
         ))}
       </div>
-
-      {/* Contador de productos */}
-      <div className="text-center mb-4">
-        <p>
-          Mostrando {productosFiltrados.length} de {productos.length} productos
-          {filtro !== "Todos" && ` en la categoría "${filtro}"`}
-        </p>
-      </div>
-
       {/* Grid de productos */}
       <Row xs={1} md={2} lg={3} xl={4} className="g-4">
         {productosFiltrados.length > 0 ? (
