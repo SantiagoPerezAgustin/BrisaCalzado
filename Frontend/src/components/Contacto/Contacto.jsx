@@ -1,43 +1,125 @@
-import React, { useEffect } from "react";
-import AOS from "aos";
-import "aos/dist/aos.css";
-import "./Contacto.css";
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import { FaWhatsapp, FaInstagram, FaPaperPlane } from "react-icons/fa";
 
 function Contacto() {
-  useEffect(() => {
-    AOS.init({ duration: 1000 });
-  }, []);
+  const [email, setEmail] = useState("");
+  const [mensaje, setMensaje] = useState("");
+
+  const containerVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6 },
+    },
+  };
+
+  const buttonVariants = {
+    hover: { scale: 1.05, boxShadow: "0 10px 20px rgba(255, 105, 180, 0.3)" },
+    tap: { scale: 0.95 },
+  };
 
   return (
-    <section
-      className="contacto-rapido-section py-5 text-center bg-white"
+    <motion.section
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true }}
+      variants={containerVariants}
+      className="py-16 px-4 bg-gradient-to-r from-pink-100 to-pink-50 text-center"
       id="contacto"
-      data-aos="fade-up" // <-- AOS agregado
     >
-      <div className="container">
-        <h2 className="text-pink mb-4">¿Querés hablar con nosotras?</h2>
-        <p className="mb-5">¡Mandanos un mensaje directo! 💬</p>
+      <div className="max-w-2xl mx-auto">
+        <motion.h2
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-4xl font-bold text-pink-800 mb-4"
+        >
+          ¿Querés hablar con nosotras?
+        </motion.h2>
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2 }}
+          className="text-lg text-gray-600 mb-8"
+        >
+          ¡Mandanos un mensaje directo! 💬
+        </motion.p>
 
-        <div className="d-flex justify-content-center gap-4 flex-wrap">
-          <a
-            href="https://wa.me/5493415039633?text=¡Hola!%20Quiero%20hacer%20una%20consulta%20sobre%20un%20producto"
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.3 }}
+          className="mb-8 space-y-4"
+        >
+          <input
+            type="email"
+            placeholder="Tu email..."
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full px-6 py-3 rounded-lg border-2 border-pink-300 focus:border-pink-500 focus:outline-none bg-white"
+          />
+          <textarea
+            placeholder="Tu mensaje..."
+            value={mensaje}
+            onChange={(e) => setMensaje(e.target.value)}
+            rows="4"
+            className="w-full px-6 py-3 rounded-lg border-2 border-pink-300 focus:border-pink-500 focus:outline-none bg-white resize-none"
+          />
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.4 }}
+          className="flex flex-col sm:flex-row justify-center gap-4 mb-8"
+        >
+          <motion.button
+            variants={buttonVariants}
+            whileHover="hover"
+            whileTap="tap"
+            className="bg-pink-500 hover:bg-pink-600 text-white font-bold py-3 px-8 rounded-lg flex items-center justify-center gap-2 transition"
+          >
+            <FaPaperPlane size={20} /> Enviar
+          </motion.button>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.5 }}
+          className="flex flex-col sm:flex-row justify-center gap-4"
+        >
+          <motion.a
+            variants={buttonVariants}
+            whileHover="hover"
+            whileTap="tap"
+            href="https://wa.me/5493415039633?text=¡Hola!%20Quiero%20hacer%20una%20consulta"
             target="_blank"
             rel="noopener noreferrer"
-            className="btn btn-success px-4 py-2 rounded-pill fw-bold"
+            className="bg-green-500 hover:bg-green-600 text-white font-bold py-3 px-6 rounded-lg flex items-center justify-center gap-2 transition"
           >
-            <i className="fab fa-whatsapp me-2"></i> WhatsApp
-          </a>
-          <a
+            <FaWhatsapp size={24} /> WhatsApp
+          </motion.a>
+          <motion.a
+            variants={buttonVariants}
+            whileHover="hover"
+            whileTap="tap"
             href="https://www.instagram.com/brisacalzados.ind/"
             target="_blank"
             rel="noopener noreferrer"
-            className="btn btn-dark px-4 py-2 rounded-pill fw-bold"
+            className="bg-pink-500 hover:bg-pink-600 text-white font-bold py-3 px-6 rounded-lg flex items-center justify-center gap-2 transition"
           >
-            <i className="fab fa-instagram me-2"></i> Instagram
-          </a>
-        </div>
+            <FaInstagram size={24} /> Instagram
+          </motion.a>
+        </motion.div>
       </div>
-    </section>
+    </motion.section>
   );
 }
 

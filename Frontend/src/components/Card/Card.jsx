@@ -1,40 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import "./Card.css";
-import {
-  FaTshirt,
-  FaShoePrints,
-  FaUserFriends,
-  FaGem,
-  FaHeart,
-} from "react-icons/fa";
-import AOS from "aos";
-import "aos/dist/aos.css";
-import {
-  Container,
-  Row,
-  Col,
-  Button,
-  Card as BootstrapCard,
-  Badge,
-  Spinner,
-  Alert,
-  Toast,
-} from "react-bootstrap";
-
-// Inicializar AOS para animaciones
-AOS.init({
-  duration: 800,
-  easing: "ease-in-out",
-  once: true,
-});
+import { motion } from "framer-motion";
+import { FaHeart, FaRegHeart } from "react-icons/fa";
 
 export const ProductsGrid = () => {
   const [productos, setProductos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [filtro, setFiltro] = useState(0);
-  const [hoveredCard, setHoveredCard] = useState(null);
   const [favoritos, setFavoritos] = useState([]);
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
@@ -43,7 +14,8 @@ export const ProductsGrid = () => {
     const fetchProductos = async () => {
       try {
         setLoading(true);
-        const response = await fetch("https://localhost:7186/api/Producto");
+        // Cambia a tu URL del backend .NET
+        const response = await fetch("/api/productos");
 
         if (!response.ok) {
           throw new Error(`Error ${response.status}: ${response.statusText}`);
@@ -59,7 +31,6 @@ export const ProductsGrid = () => {
       }
     };
 
-    // Cargar favoritos desde localStorage
     const favoritosGuardados =
       JSON.parse(localStorage.getItem("favoritos")) || [];
     setFavoritos(favoritosGuardados);
@@ -67,22 +38,19 @@ export const ProductsGrid = () => {
     fetchProductos();
   }, []);
 
-  // Función para manejar favoritos
   const toggleFavorito = (e, producto) => {
-    e.preventDefault(); // Prevenir navegación
-    e.stopPropagation(); // Detener propagación del evento
+    e.preventDefault();
+    e.stopPropagation();
 
     const nuevoFavoritos = [...favoritos];
     const existeIndex = nuevoFavoritos.findIndex(
-      (fav) => fav.id === producto.id
+      (fav) => fav.id === producto.id,
     );
 
     if (existeIndex >= 0) {
-      // Quitar de favoritos
       nuevoFavoritos.splice(existeIndex, 1);
       setToastMessage(`"${producto.nombre}" eliminado de favoritos`);
     } else {
-      // Agregar a favoritos
       nuevoFavoritos.push(producto);
       setToastMessage(`"${producto.nombre}" agregado a favoritos`);
     }
@@ -90,242 +58,148 @@ export const ProductsGrid = () => {
     setFavoritos(nuevoFavoritos);
     localStorage.setItem("favoritos", JSON.stringify(nuevoFavoritos));
     setShowToast(true);
+    setTimeout(() => setShowToast(false), 3000);
   };
-
-  // Función para normalizar categorías
-  const normalizarCategoria = (categoria) => {
-    if (!categoria) return "Sin categoría";
-
-    if (typeof categoria === "string") {
-      return categoria.trim();
-    }
-
-    if (typeof categoria === "object" && categoria.nombre) {
-      return categoria.nombre.trim();
-    }
-
-    return String(categoria);
-  };
-
-  // Obtener categorías únicas desde los productos
-  const categoriasUnicas = [
-    { id: 0, nombre: "Todos" },
-    ...Array.from(
-      new Map(
-        productos
-          .filter(
-            (p) =>
-              p.categoria && typeof p.categoria === "object" && p.categoria.id
-          )
-          .map((p) => [
-            p.categoria.id,
-            { id: p.categoria.id, nombre: p.categoria.nombre },
-          ])
-      ).values()
-    ),
-  ];
-
-  // Filtrar productos según la categoría seleccionada
-  const productosFiltrados =
-    filtro === 0
-      ? productos
-      : productos.filter(
-          (producto) =>
-            producto.categoria &&
-            typeof producto.categoria === "object" &&
-            producto.categoria.id === filtro
-        );
 
   if (loading) {
     return (
-      <Container className="text-center py-5">
-        <Spinner animation="border" variant="pink" role="status">
-          <span className="visually-hidden">Cargando...</span>
-        </Spinner>
-        <p className="mt-3">Cargando productos...</p>
-      </Container>
+      <div className="flex items-center justify-center py-20 bg-pink-50">
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+          className="w-12 h-12 border-4 border-pink-300 border-t-pink-600 rounded-full"
+        />
+      </div>
     );
   }
 
   if (error) {
     return (
-      <Container className="py-5">
-        <Alert variant="danger">
-          <Alert.Heading>Error al cargar los productos</Alert.Heading>
-          <p>{error}</p>
-          <Button
-            onClick={() => window.location.reload()}
-            variant="outline-danger"
-          >
-            Reintentar
-          </Button>
-        </Alert>
-      </Container>
+      <div className="py-20 text-center bg-pink-50">
+        <p className="text-red-500 font-semibold text-lg">Error: {error}</p>
+      </div>
     );
   }
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.1, delayChildren: 0.2 },
+    },
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, ease: "easeOut" },
+    },
+  };
+
   return (
-    <Container className="py-5">
-      {/* Toast para notificaciones */}
-      <Toast
-        onClose={() => setShowToast(false)}
-        show={showToast}
-        delay={3000}
-        autohide
-        style={{
-          position: "fixed",
-          top: "20px",
-          right: "20px",
-          zIndex: 9999,
-          backgroundColor: "#d63384",
-          color: "white",
-        }}
-      >
-        <Toast.Header>
-          <strong className="me-auto">Favoritos</strong>
-        </Toast.Header>
-        <Toast.Body>{toastMessage}</Toast.Body>
-      </Toast>
-      <h2 className="text-center mb-4 fw-bold" style={{ color: "#d63384" }}>
-        Nuestros Productos
-      </h2>
-      {/* Mostrar categorías disponibles desde la API (para debugging) */}
-      {productos.length > 0 && (
-        <div className="text-center mb-3">
-          <small className="text-muted">
-            Categorías encontradas:{" "}
-            {[
-              ...new Set(
-                productos.map((p) => normalizarCategoria(p.categoria))
-              ),
-            ].join(", ")}
-          </small>
-        </div>
-      )}
-      {/* Filtros por categoría */}
-      <div className="d-flex flex-wrap justify-content-center gap-3 mb-5">
-        {categoriasUnicas.map((cat) => (
-          <Button
-            key={cat.id}
-            variant={filtro === cat.id ? "pink" : "outline-pink"}
-            onClick={() => setFiltro(cat.id)}
-            className="d-flex align-items-center gap-2 rounded-pill px-4"
-          >
-            {cat.nombre}
-          </Button>
-        ))}
-      </div>
-      {/* Grid de productos */}
-      <Row xs={1} md={2} lg={3} xl={4} className="g-4">
-        {productosFiltrados.length > 0 ? (
-          productosFiltrados.map((prod) => {
-            const esFavorito = favoritos.some((fav) => fav.id === prod.id);
+    <section className="py-16 bg-pink-50" id="productos">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <motion.h2
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-4xl font-bold text-center text-pink-800 mb-12"
+        >
+          Nuestros Productos
+        </motion.h2>
 
-            return (
-              <Col key={prod.id} data-aos="fade-up">
-                <Link
-                  to={`/proyecto/${prod.id}`}
-                  className="text-decoration-none"
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={containerVariants}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+        >
+          {productos.map((producto) => (
+            <motion.div
+              key={producto.id}
+              variants={cardVariants}
+              whileHover={{ y: -10 }}
+              className="bg-white border-2 border-pink-100 rounded-2xl overflow-hidden shadow-md hover:shadow-lg hover:border-pink-400 transition-all"
+            >
+              <div className="relative overflow-hidden h-48 bg-pink-100">
+                <img
+                  src={
+                    producto.imagen ||
+                    "https://via.placeholder.com/300x200?text=Producto"
+                  }
+                  alt={producto.nombre}
+                  className="w-full h-full object-cover"
+                />
+                <motion.button
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.9 }}
+                  onClick={(e) => toggleFavorito(e, producto)}
+                  className="absolute top-3 right-3 bg-white rounded-full p-2 shadow-lg hover:bg-pink-50"
                 >
-                  <BootstrapCard
-                    className={`h-100 custom-card ${
-                      hoveredCard === prod.id ? "shadow-lg" : ""
-                    }`}
-                    onMouseEnter={() => setHoveredCard(prod.id)}
-                    onMouseLeave={() => setHoveredCard(null)}
-                    style={{
-                      borderColor:
-                        hoveredCard === prod.id ? "#ff69b4" : "#f8bbd0",
-                    }}
+                  {favoritos.some((fav) => fav.id === producto.id) ? (
+                    <FaHeart className="text-pink-500" size={20} />
+                  ) : (
+                    <FaRegHeart className="text-pink-500" size={20} />
+                  )}
+                </motion.button>
+              </div>
+
+              <div className="p-4">
+                <h3 className="text-lg font-bold text-gray-800 mb-2">
+                  {producto.nombre}
+                </h3>
+                <p className="text-gray-600 text-sm mb-3 line-clamp-2">
+                  {producto.descripcion || "Sin descripción"}
+                </p>
+                <div className="flex justify-between items-center">
+                  <span className="text-xl font-bold text-pink-600">
+                    ${producto.precio}
+                  </span>
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    className="bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded-full transition-all"
                   >
-                    <div className="position-relative">
-                      <BootstrapCard.Img
-                        variant="top"
-                        src={
-                          prod.imagen ||
-                          "https://via.placeholder.com/300x200?text=Producto"
-                        }
-                        alt={prod.nombre}
-                        className="img-fluid product-image"
-                      />
-                      <Badge
-                        bg={prod.stock > 0 ? "success" : "danger"}
-                        className="position-absolute top-0 end-0 m-2"
-                      >
-                        {prod.stock > 0 ? "Disponible" : "Agotado"}
-                      </Badge>
-                    </div>
+                    Ver
+                  </motion.button>
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </motion.div>
 
-                    <BootstrapCard.Body className="d-flex flex-column">
-                      <BootstrapCard.Title
-                        className="fw-bold"
-                        style={{ color: "#d63384" }}
-                      >
-                        {prod.nombre}
-                      </BootstrapCard.Title>
-                      <BootstrapCard.Text className="text-muted mb-3">
-                        {prod.descripcion}
-                      </BootstrapCard.Text>
-
-                      <div className="mt-auto">
-                        <div className="d-flex justify-content-between align-items-center mb-3">
-                          <h5
-                            className="mb-0 fw-bold"
-                            style={{ color: "#e83e8c" }}
-                          >
-                            ${prod.precio?.toLocaleString() || "0"}
-                          </h5>
-                          <small className="text-muted">
-                            {normalizarCategoria(prod.categoria)}
-                          </small>
-                        </div>
-
-                        <div className="d-flex gap-2">
-                          <Button
-                            variant="pink"
-                            className="flex-grow-1"
-                            as={Link}
-                            to="/sobre-nosotros"
-                            onClick={(e) => e.stopPropagation()} // Evitar navegación al card
-                          >
-                            Contactar
-                          </Button>
-                          <Button
-                            variant={esFavorito ? "pink" : "outline-pink"}
-                            onClick={(e) => toggleFavorito(e, prod)}
-                          >
-                            <FaHeart />
-                          </Button>
-                        </div>
-                      </div>
-                    </BootstrapCard.Body>
-                  </BootstrapCard>
-                </Link>
-              </Col>
-            );
-          })
-        ) : (
-          <Col xs={12} className="text-center py-5">
-            <div className="bg-light p-5 rounded">
-              <h4 className="text-pink">No hay productos en esta categoría</h4>
-              <p className="text-muted">
-                No encontramos productos en la categoría "{filtro}".
-                {filtro !== "Todos" && (
-                  <Button
-                    variant="link"
-                    className="p-0 ms-1"
-                    onClick={() => setFiltro("Todos")}
-                  >
-                    Ver todos los productos
-                  </Button>
-                )}
-              </p>
-            </div>
-          </Col>
+        {productos.length === 0 && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="text-center py-12"
+          >
+            <p className="text-gray-600 text-lg">
+              No hay productos disponibles
+            </p>
+          </motion.div>
         )}
-      </Row>
-    </Container>
+      </div>
+
+      {showToast && (
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: 50 }}
+          className="fixed bottom-4 right-4 bg-pink-500 text-white px-6 py-3 rounded-lg shadow-lg"
+        >
+          {toastMessage}
+        </motion.div>
+      )}
+    </section>
   );
 };
 
-export default ProductsGrid;
+function Card() {
+  return <ProductsGrid />;
+}
+
+export default Card;
