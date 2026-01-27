@@ -1,74 +1,245 @@
-import Button from "react-bootstrap/Button";
-import Container from "react-bootstrap/Container";
-import Form from "react-bootstrap/Form";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
-import LogoBrisa from "../../assets/image transparente.jpg"
-import "./Navbar.css";
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import { FaShoppingCart, FaHeart, FaSearch, FaBars, FaTimes } from "react-icons/fa";
+import LogoBrisa from "../../assets/image transparente.jpg";
 
 function MyNavbar() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const navVariants = {
+    hidden: { opacity: 0, y: -30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: "easeOut" },
+    },
+  };
+
+  const linkVariants = {
+    hidden: { opacity: 0, y: -10 },
+    visible: (i) => ({
+      opacity: 1,
+      y: 0,
+      transition: { delay: i * 0.08, duration: 0.4 },
+    }),
+  };
+
+  const navLinks = [
+    { label: "Inicio", href: "/" },
+    { label: "Productos", href: "#productos" },
+    { label: "Sobre Nosotros", href: "/sobre-nosotros" },
+    { label: "Contacto", href: "#contacto" },
+  ];
+
   return (
-    <Navbar expand="lg" className="fixed-top navbar-pink shadow-sm py-2">
-      <Container fluid>
-        <Navbar.Brand
-          href="/"
-          className="fw-bold text-black d-flex align-items-center gap-2"
-          style={{ backgroundColor: "transparent" }}
-        >
-          <img src={LogoBrisa} alt="Logo Brisa" className="logo-navbar-img" />
-          <span className="ms-2">BRISA</span>
-        </Navbar.Brand>
-        <Navbar.Toggle aria-controls="navbarScroll" className="border-0" />
-        <Navbar.Collapse id="navbarScroll">
-          <Nav
-            className="me-auto my-2 my-lg-0 gap-2 align-items-center"
-            style={{ maxHeight: "100px" }}
-            navbarScroll
+    <motion.nav
+      initial="hidden"
+      animate="visible"
+      variants={navVariants}
+      className="fixed top-0 w-full z-50 bg-gradient-to-r from-pink-100 via-pink-50 to-white shadow-lg border-b-4 border-pink-500 py-3"
+    >
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-16">
+          {/* Logo */}
+          <motion.a
+            whileHover={{ scale: 1.08 }}
+            whileTap={{ scale: 0.95 }}
+            href="/"
+            className="flex items-center gap-2 group cursor-pointer"
           >
-            <Nav.Link href="/" className="nav-link-custom">
-              Inicio
-            </Nav.Link>
-            <Nav.Link href="/sobre-nosotros" className="nav-link-custom">
-              Contacto
-            </Nav.Link>
-            <NavDropdown
-              title="Productos"
-              id="navbarScrollingDropdown"
-              className="nav-link-custom"
+            <div className="relative">
+              <motion.div className="rounded-xl bg-white p-1.5 shadow-lg group-hover:shadow-xl transition-shadow">
+                <img
+                  src={LogoBrisa}
+                  alt="Logo Brisa"
+                  className="h-10 w-auto object-contain"
+                />
+              </motion.div>
+            </div>
+            <motion.div
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.2 }}
+              className="flex flex-col"
             >
-              <NavDropdown.Item href="/primavera" className="dropdown-custom">
-                Primavera-Verano
-              </NavDropdown.Item>
-              <NavDropdown.Item
-                href="/otoño-invierno"
-                className="dropdown-custom"
+              <span className="font-black text-lg text-pink-700">BRISA</span>
+              <span className="text-xs text-pink-500 font-semibold">Calzado</span>
+            </motion.div>
+          </motion.a>
+
+          {/* Desktop Menu */}
+          <div className="hidden lg:flex items-center gap-1">
+            {navLinks.map((link, i) => (
+              <motion.a
+                key={link.href}
+                custom={i}
+                variants={linkVariants}
+                initial="hidden"
+                animate="visible"
+                whileHover={{ scale: 1.05 }}
+                href={link.href}
+                className="text-gray-700 font-bold px-4 py-2 rounded-full transition-all relative group"
               >
-                Otoño-Invierno
-              </NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="/ofertas" className="dropdown-custom">
-                Ofertas Especiales
-              </NavDropdown.Item>
-            </NavDropdown>
-            <Nav.Link href="/sobre-nosotros" className="nav-link-custom">
-              Sobre Nosotros
-            </Nav.Link>
-          </Nav>
-          <Form className="d-flex align-items-center">
-            <Form.Control
-              type="search"
-              placeholder="Buscar"
-              className="me-2 search-navbar"
-              aria-label="Search"
+                <span className="relative z-10">{link.label}</span>
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-pink-400 to-pink-500 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"
+                  initial={{ opacity: 0 }}
+                  whileHover={{ opacity: 1 }}
+                />
+                <motion.span
+                  className="absolute bottom-0 left-0 w-0 h-0.5 bg-pink-600 group-hover:w-full transition-all"
+                  initial={{ width: 0 }}
+                  whileHover={{ width: "100%" }}
+                />
+              </motion.a>
+            ))}
+          </div>
+
+          {/* Search Bar */}
+          <motion.div
+            className="hidden lg:flex items-center gap-2 bg-white/80 backdrop-blur-sm rounded-full px-4 py-2 border-2 border-pink-200 hover:border-pink-500 transition-all"
+            whileHover={{ scale: 1.05 }}
+          >
+            <input
+              type="text"
+              placeholder="Buscar..."
+              className="bg-transparent text-gray-700 placeholder-gray-400 focus:outline-none w-40 text-sm"
             />
-            <Button variant="outline-success" className="btn-buscar">
-              <i className="fas fa-search"></i>
-            </Button>
-          </Form>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+            <motion.button
+              whileHover={{ scale: 1.2 }}
+              whileTap={{ scale: 0.9 }}
+              className="text-pink-600 hover:text-pink-700"
+            >
+              <FaSearch size={16} />
+            </motion.button>
+          </motion.div>
+
+          {/* Icons */}
+          <div className="hidden lg:flex items-center gap-4">
+            <motion.button
+              whileHover={{ scale: 1.1, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+              className="relative text-gray-700 hover:text-pink-600 transition text-xl"
+            >
+              <FaHeart />
+              <span className="absolute -top-2 -right-2 bg-pink-600 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                0
+              </span>
+            </motion.button>
+
+            <motion.button
+              whileHover={{ scale: 1.1, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+              className="relative text-gray-700 hover:text-pink-600 transition text-xl"
+            >
+              <FaShoppingCart />
+              <span className="absolute -top-2 -right-2 bg-pink-600 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                0
+              </span>
+            </motion.button>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <motion.button
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={() => setIsOpen(!isOpen)}
+            className="lg:hidden text-gray-700 text-2xl"
+          >
+            {isOpen ? <FaTimes /> : <FaBars />}
+          </motion.button>
+        </div>
+
+        {/* Mobile Menu */}
+        <motion.div
+          initial={false}
+          animate={isOpen ? "open" : "closed"}
+          variants={{
+            open: {
+              opacity: 1,
+              height: "auto",
+              transition: { duration: 0.3 },
+            },
+            closed: {
+              opacity: 0,
+              height: 0,
+              transition: { duration: 0.3 },
+            },
+          }}
+          className="lg:hidden overflow-hidden bg-white/95 backdrop-blur-sm"
+        >
+          <motion.div
+            className="flex flex-col gap-2 pt-4 pb-4 px-2"
+            variants={{
+              open: {
+                transition: { staggerChildren: 0.1 },
+              },
+            }}
+          >
+            {navLinks.map((link, i) => (
+              <motion.a
+                key={link.href}
+                variants={{
+                  closed: { opacity: 0, x: -10 },
+                  open: { opacity: 1, x: 0 },
+                }}
+                href={link.href}
+                onClick={() => setIsOpen(false)}
+                className="text-gray-700 font-bold px-4 py-3 rounded-lg hover:bg-pink-100 transition-all text-center"
+              >
+                {link.label}
+              </motion.a>
+            ))}
+
+            {/* Mobile Search */}
+            <motion.div
+              variants={{
+                closed: { opacity: 0, x: -10 },
+                open: { opacity: 1, x: 0 },
+              }}
+              className="flex items-center gap-2 bg-pink-100 rounded-lg px-4 py-2 mt-2 border-2 border-pink-300"
+            >
+              <input
+                type="text"
+                placeholder="Buscar..."
+                className="bg-transparent text-gray-700 placeholder-gray-400 focus:outline-none flex-1 text-sm"
+              />
+              <FaSearch className="text-pink-600" />
+            </motion.div>
+
+            {/* Mobile Icons */}
+            <motion.div
+              variants={{
+                closed: { opacity: 0, x: -10 },
+                open: { opacity: 1, x: 0 },
+              }}
+              className="flex gap-4 justify-center pt-2 border-t border-pink-200 mt-2"
+            >
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                className="relative text-gray-700 hover:text-pink-600 text-2xl"
+              >
+                <FaHeart />
+                <span className="absolute -top-2 -right-2 bg-pink-600 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                  0
+                </span>
+              </motion.button>
+              <motion.button
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                className="relative text-gray-700 hover:text-pink-600 text-2xl"
+              >
+                <FaShoppingCart />
+                <span className="absolute -top-2 -right-2 bg-pink-600 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                  0
+                </span>
+              </motion.button>
+            </motion.div>
+          </motion.div>
+        </motion.div>
+      </div>
+    </motion.nav>
   );
 }
 
