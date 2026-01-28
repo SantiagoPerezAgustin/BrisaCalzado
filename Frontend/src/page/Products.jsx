@@ -1,51 +1,69 @@
-// src/page/Products.jsx
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import MyNavbar from "../components/Navbar/Navbar";
+import Footer from "../components/Footer/Footer";
 
-function Products() {
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState("");
+import { useProducts } from "../components/ProductPage/useProducts";
+import ProductsToolbar from "../components/ProductPage/ProductsToolbar";
+import ProductsGrid from "../components/ProductPage/ProductsGrid";
+import ProductModal from "../components/ProductPage/ProductModal";
 
-  useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const res = await fetch("https://localhost:7186/api/Producto");
-        if (!res.ok) throw new Error(`Error ${res.status}`);
-        const data = await res.json();
-        setProducts(data);
-      } catch (err) {
-        setError(err.message || "No se pudo cargar productos");
-      } finally {
-        setLoading(false);
-      }
-    };
+export default function Products() {
+  const {
+    productosFiltrados,
+    categorias,
+    categoria,
+    setCategoria,
+    loading,
+    error,
+  } = useProducts();
 
-    fetchProducts();
-  }, []);
-
-  if (loading)
-    return <div className="p-8 text-center">Cargando productos...</div>;
-  if (error)
-    return <div className="p-8 text-center text-red-600">Error: {error}</div>;
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
   return (
-    <div className="p-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {products.map((p) => (
-        <article
-          key={p.id}
-          className="rounded-lg shadow bg-white p-4 border border-gray-100"
-        >
-          <h3 className="text-lg font-semibold mb-2">{p.nombre ?? p.name}</h3>
-          <p className="text-sm text-gray-600 mb-2">
-            {p.descripcion ?? p.description ?? "Sin descripción"}
-          </p>
-          <p className="text-base font-bold text-pink-600">
-            {(p.precio ?? p.price) ? `$${p.precio ?? p.price}` : "Consultar"}
-          </p>
-        </article>
-      ))}
-    </div>
+    <>
+      <MyNavbar />
+
+      <main className="pt-24 min-h-screen bg-pink-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+          <ProductsToolbar
+            categorias={categorias}
+            categoria={categoria}
+            onChangeCategoria={setCategoria}
+          />
+
+          {loading && (
+            <div className="py-20 text-center text-gray-700 font-semibold">
+              Cargando productos...
+            </div>
+          )}
+
+          {error && (
+            <div className="py-20 text-center text-red-600 font-semibold">
+              Error: {error}
+            </div>
+          )}
+
+          {!loading && !error && productosFiltrados.length === 0 && (
+            <div className="py-20 text-center text-gray-700 font-semibold">
+              No hay productos para esa categoría.
+            </div>
+          )}
+
+          {!loading && !error && productosFiltrados.length > 0 && (
+            <ProductsGrid
+              productos={productosFiltrados}
+              onView={(p) => setSelectedProduct(p)}
+            />
+          )}
+        </div>
+      </main>
+
+      <Footer />
+
+      <ProductModal
+        product={selectedProduct}
+        onClose={() => setSelectedProduct(null)}
+      />
+    </>
   );
 }
-
-export default Products;

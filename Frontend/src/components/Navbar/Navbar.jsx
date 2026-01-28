@@ -28,7 +28,7 @@ function MyNavbar() {
     { label: "Inicio", href: "/" },
     { label: "Productos", href: "/products" },
     { label: "Sobre Nosotros", href: "/sobre-nosotros" },
-    { label: "Contacto", href: "/sobre-nosotros" },
+    { label: "Contacto", href: "/#contacto" }, // o "/contacto",
   ];
 
   return (
@@ -184,34 +184,6 @@ function MyNavbar() {
             </motion.div>
 
             {/* Mobile Icons */}
-            <motion.div
-              variants={{
-                closed: { opacity: 0, x: -10 },
-                open: { opacity: 1, x: 0 },
-              }}
-              className="flex gap-4 justify-center pt-2 border-t border-pink-200 mt-2"
-            >
-              <motion.button
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-                className="relative text-gray-700 hover:text-pink-600 text-2xl"
-              >
-                <FaHeart />
-                <span className="absolute -top-2 -right-2 bg-pink-600 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
-                  0
-                </span>
-              </motion.button>
-              <motion.button
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-                className="relative text-gray-700 hover:text-pink-600 text-2xl"
-              >
-                <FaShoppingCart />
-                <span className="absolute -top-2 -right-2 bg-pink-600 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
-                  0
-                </span>
-              </motion.button>
-            </motion.div>
           </motion.div>
         </motion.div>
       </div>

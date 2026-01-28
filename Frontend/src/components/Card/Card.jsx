@@ -15,7 +15,7 @@ export const ProductsGrid = () => {
       try {
         setLoading(true);
         // Cambia a tu URL del backend .NET
-        const response = await fetch("http://localhost:5165/api/Producto");
+        const response = await fetch("https://localhost:7186/api/Producto");
 
         if (!response.ok) {
           throw new Error(`Error ${response.status}: ${response.statusText}`);
@@ -161,7 +161,7 @@ export const ProductsGrid = () => {
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    className="bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded-full transition-all"
+                    className="bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded-full transition-all cursor-pointer"
                   >
                     Ver
                   </motion.button>

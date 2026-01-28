@@ -12,7 +12,6 @@ function Home() {
     <>
       <MyNavbar />
       <HeroBanner />
-      <Card />
       <Carousels />
       <BenefitsBuying />
       <Footer />
