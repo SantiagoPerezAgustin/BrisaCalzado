@@ -35,7 +35,7 @@ function Footer() {
               </li>
               <li>
                 <a
-                  href="#contacto"
+                  href="/sobre-nosotros"
                   className="text-gray-700 hover:text-pink-600 transition font-semibold"
                 >
                   Contacto

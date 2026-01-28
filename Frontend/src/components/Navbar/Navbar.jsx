@@ -26,9 +26,9 @@ function MyNavbar() {
 
   const navLinks = [
     { label: "Inicio", href: "/" },
-    { label: "Productos", href: "#productos" },
+    { label: "Productos", href: "/products" },
     { label: "Sobre Nosotros", href: "/sobre-nosotros" },
-    { label: "Contacto", href: "#contacto" },
+    { label: "Contacto", href: "/sobre-nosotros" },
   ];
 
   return (
@@ -114,30 +114,6 @@ function MyNavbar() {
             </motion.button>
           </motion.div>
 
-          {/* Icons */}
-          <div className="hidden lg:flex items-center gap-4">
-            <motion.button
-              whileHover={{ scale: 1.1, y: -2 }}
-              whileTap={{ scale: 0.95 }}
-              className="relative text-gray-700 hover:text-pink-600 transition text-xl"
-            >
-              <FaHeart />
-              <span className="absolute -top-2 -right-2 bg-pink-600 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
-                0
-              </span>
-            </motion.button>
-
-            <motion.button
-              whileHover={{ scale: 1.1, y: -2 }}
-              whileTap={{ scale: 0.95 }}
-              className="relative text-gray-700 hover:text-pink-600 transition text-xl"
-            >
-              <FaShoppingCart />
-              <span className="absolute -top-2 -right-2 bg-pink-600 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
-                0
-              </span>
-            </motion.button>
-          </div>
 
           {/* Mobile Menu Button */}
           <motion.button

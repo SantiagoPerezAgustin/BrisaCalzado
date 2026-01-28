@@ -54,7 +54,7 @@ function HeroBanner() {
           variants={itemVariants}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          href="#productos"
+          href="/products"
           className="inline-block bg-white text-pink-600 font-bold px-8 py-3 rounded-full hover:bg-pink-100 transition-all shadow-lg"
         >
           Ver productos

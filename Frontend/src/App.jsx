@@ -5,6 +5,7 @@ import Proyecto from "./components/Proyecto/Proyecto";
 import "./App.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import SobreNosotrosPage from "./page/SobreNosotrosPage";
+import Products from "./page/Products";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/proyecto/:id" element={<Proyecto />} />
           <Route path="/sobre-nosotros" element={<SobreNosotrosPage />} />
+          <Route path="/products" element={<Products />} /> {/* nueva ruta */}
         </Routes>
       </div>
     </BrowserRouter>

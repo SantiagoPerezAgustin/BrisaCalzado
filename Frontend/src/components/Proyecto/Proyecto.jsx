@@ -36,7 +36,7 @@ function Proyecto() {
       try {
         setLoading(true);
         const response = await fetch(
-          `https://localhost:7186/api/Producto/${id}`
+          `https://localhost:7186/api/Producto/${id}`,
         );
 
         if (!response.ok) {

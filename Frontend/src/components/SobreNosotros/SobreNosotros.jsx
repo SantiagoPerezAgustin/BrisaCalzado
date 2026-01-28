@@ -290,7 +290,7 @@ function SobreNosotros() {
             <motion.a
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              href="/"
+              href="/products"
               className="inline-block bg-pink-600 hover:bg-pink-700 text-white font-bold px-8 py-3 rounded-lg transition"
             >
               Ver Productos
