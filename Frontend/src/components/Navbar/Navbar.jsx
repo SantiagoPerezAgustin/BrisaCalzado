@@ -95,26 +95,6 @@ function MyNavbar() {
             ))}
           </div>
 
-          {/* Search Bar */}
-          <motion.div
-            className="hidden lg:flex items-center gap-2 bg-white/80 backdrop-blur-sm rounded-full px-4 py-2 border-2 border-pink-200 hover:border-pink-500 transition-all"
-            whileHover={{ scale: 1.05 }}
-          >
-            <input
-              type="text"
-              placeholder="Buscar..."
-              className="bg-transparent text-gray-700 placeholder-gray-400 focus:outline-none w-40 text-sm"
-            />
-            <motion.button
-              whileHover={{ scale: 1.2 }}
-              whileTap={{ scale: 0.9 }}
-              className="text-pink-600 hover:text-pink-700"
-            >
-              <FaSearch size={16} />
-            </motion.button>
-          </motion.div>
-
-
           {/* Mobile Menu Button */}
           <motion.button
             whileHover={{ scale: 1.1 }}
