@@ -13,6 +13,8 @@ export default function Products() {
     categorias,
     categoria,
     setCategoria,
+    searchQuery,
+    setSearchQuery,
     loading,
     error,
   } = useProducts();
@@ -29,6 +31,8 @@ export default function Products() {
             categorias={categorias}
             categoria={categoria}
             onChangeCategoria={setCategoria}
+            searchQuery={searchQuery}
+            onSearchChange={setSearchQuery}
           />
 
           {loading && (
@@ -45,7 +49,7 @@ export default function Products() {
 
           {!loading && !error && productosFiltrados.length === 0 && (
             <div className="py-20 text-center text-gray-700 font-semibold">
-              No hay productos para esa categoría.
+              No hay productos para esa categoría o búsqueda.
             </div>
           )}
 

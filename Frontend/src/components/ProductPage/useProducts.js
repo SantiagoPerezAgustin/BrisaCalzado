@@ -7,6 +7,7 @@ export function useProducts() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [categoria, setCategoria] = useState("Todas");
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     const fetchProductos = async () => {
@@ -35,9 +36,21 @@ export function useProducts() {
   }, [productos]);
 
   const productosFiltrados = useMemo(() => {
-    if (categoria === "Todas") return productos;
-    return productos.filter((p) => p?.categoria?.nombre === categoria);
-  }, [productos, categoria]);
+    let list = productos;
+    if (categoria !== "Todas") {
+      list = list.filter((p) => p?.categoria?.nombre === categoria);
+    }
+    if (searchQuery.trim()) {
+      const q = searchQuery.trim().toLowerCase();
+      list = list.filter(
+        (p) =>
+          (p?.nombre ?? "").toLowerCase().includes(q) ||
+          (p?.descripcion ?? "").toLowerCase().includes(q) ||
+          (p?.categoria?.nombre ?? "").toLowerCase().includes(q),
+      );
+    }
+    return list;
+  }, [productos, categoria, searchQuery]);
 
   return {
     productos,
@@ -45,6 +58,8 @@ export function useProducts() {
     categorias,
     categoria,
     setCategoria,
+    searchQuery,
+    setSearchQuery,
     loading,
     error,
   };
