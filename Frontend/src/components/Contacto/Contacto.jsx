@@ -47,47 +47,6 @@ function Contacto() {
         >
           ¡Mandanos un mensaje directo! 💬
         </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.3 }}
-          className="mb-8 space-y-4"
-        >
-          <input
-            type="email"
-            placeholder="Tu email..."
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="w-full px-6 py-3 rounded-lg border-2 border-pink-300 focus:border-pink-500 focus:outline-none bg-white"
-          />
-          <textarea
-            placeholder="Tu mensaje..."
-            value={mensaje}
-            onChange={(e) => setMensaje(e.target.value)}
-            rows="4"
-            className="w-full px-6 py-3 rounded-lg border-2 border-pink-300 focus:border-pink-500 focus:outline-none bg-white resize-none"
-          />
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.4 }}
-          className="flex flex-col sm:flex-row justify-center gap-4 mb-8"
-        >
-          <motion.button
-            variants={buttonVariants}
-            whileHover="hover"
-            whileTap="tap"
-            className="bg-pink-500 hover:bg-pink-600 text-white font-bold py-3 px-8 rounded-lg flex items-center justify-center gap-2 transition"
-          >
-            <FaPaperPlane size={20} /> Enviar
-          </motion.button>
-        </motion.div>
-
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
