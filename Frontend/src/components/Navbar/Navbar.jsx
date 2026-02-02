@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { FaShoppingCart, FaHeart, FaSearch, FaBars, FaTimes } from "react-icons/fa";
-import LogoBrisa from "../../assets/image transparente.jpg";
+import LogoBrisa from "../../assets/image_transparente-removebg-preview.png";
 
 function MyNavbar() {
   const [isOpen, setIsOpen] = useState(false);
