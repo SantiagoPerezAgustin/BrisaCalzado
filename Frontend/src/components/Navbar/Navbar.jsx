@@ -28,7 +28,7 @@ function MyNavbar() {
     { label: "Inicio", href: "/" },
     { label: "Productos", href: "/products" },
     { label: "Sobre Nosotros", href: "/sobre-nosotros" },
-    { label: "Contacto", href: "/#contacto" }, // o "/contacto",
+    { label: "Contacto", href: "/sobre-nosotros#contacto" }, // o "/contacto",
   ];
 
   return (
@@ -146,23 +146,6 @@ function MyNavbar() {
                 {link.label}
               </motion.a>
             ))}
-
-            {/* Mobile Search */}
-            <motion.div
-              variants={{
-                closed: { opacity: 0, x: -10 },
-                open: { opacity: 1, x: 0 },
-              }}
-              className="flex items-center gap-2 bg-pink-100 rounded-lg px-4 py-2 mt-2 border-2 border-pink-300"
-            >
-              <input
-                type="text"
-                placeholder="Buscar..."
-                className="bg-transparent text-gray-700 placeholder-gray-400 focus:outline-none flex-1 text-sm"
-              />
-              <FaSearch className="text-pink-600" />
-            </motion.div>
-
             {/* Mobile Icons */}
           </motion.div>
         </motion.div>
