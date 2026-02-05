@@ -1,4 +1,5 @@
 import React from "react";
+import { useCart } from "../../context/CartContext";
 
 const PLACEHOLDER = "/producto-placeholder.jpg"; // imagen local en public
 
@@ -46,13 +47,20 @@ export default function ProductsGrid({ productos, onView }) {
               <span className="text-xs font-semibold text-gray-500">
                 {producto?.categoria?.nombre || "Sin categoría"}
               </span>
-
-              <button
-                onClick={() => onView(producto)}
-                className="bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded-full transition-all"
-              >
-                Ver
-              </button>
+              <div className="flex gap-2">
+                <button
+                  onClick={() => addToCart(producto)}
+                  className="bg-pink-400 hover:bg-pink-500 text-white font-bold py-2 px-3 rounded-full text-sm"
+                >
+                  Agregar
+                </button>
+                <button
+                  onClick={() => onView(producto)}
+                  className="bg-pink-500 hover:bg-pink-600 text-white font-bold py-2 px-4 rounded-full transition-all"
+                >
+                  Ver
+                </button>
+              </div>
             </div>
           </div>
         </div>

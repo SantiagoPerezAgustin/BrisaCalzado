@@ -1,4 +1,5 @@
 import React from "react";
+import { useCart } from "../../context/CartContext";
 
 const PLACEHOLDER = "/producto-placeholder.jpg";
 
@@ -10,6 +11,13 @@ function getImageSrc(url) {
 
 export default function ProductModal({ product, onClose }) {
   if (!product) return null;
+
+  const { addToCart } = useCart();
+
+  const handleAddToCart = () => {
+    addToCart(product);
+    onClose();
+  };
 
   return (
     <div
@@ -57,7 +65,13 @@ export default function ProductModal({ product, onClose }) {
             </div>
           </div>
 
-          <div className="mt-6 flex justify-end">
+          <div className="mt-6 flex justify-end gap-3">
+            <button
+              onClick={handleAddToCart}
+              className="bg-pink-500 hover:bg-pink-600 text-white font-bold px-5 py-2 rounded-lg"
+            >
+              Agregar al carrito
+            </button>
             <button
               onClick={onClose}
               className="bg-gray-900 hover:bg-black text-white font-bold px-5 py-2 rounded-lg"
