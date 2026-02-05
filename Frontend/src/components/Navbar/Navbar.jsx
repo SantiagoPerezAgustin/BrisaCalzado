@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { FaShoppingCart, FaHeart, FaSearch, FaBars, FaTimes } from "react-icons/fa";
+import { Link } from "react-router-dom";
+import { useCart } from "../../context/CartContext";
 import LogoBrisa from "../../assets/image_transparente-removebg-preview.png";
 
 function MyNavbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const { totalItems } = useCart();
 
   const navVariants = {
     hidden: { opacity: 0, y: -30 },
@@ -63,7 +66,9 @@ function MyNavbar() {
               className="flex flex-col"
             >
               <span className="font-black text-lg text-pink-700">BRISA</span>
-              <span className="text-xs text-pink-500 font-semibold">Calzado</span>
+              <span className="text-xs text-pink-500 font-semibold">
+                Calzado
+              </span>
             </motion.div>
           </motion.a>
 
@@ -93,6 +98,18 @@ function MyNavbar() {
                 />
               </motion.a>
             ))}
+            <Link
+              to="/cart"
+              className="relative text-gray-700 font-bold p-2 rounded-full hover:bg-pink-100 transition-all"
+              aria-label="Carrito"
+            >
+              <FaShoppingCart size={22} className="text-pink-600" />
+              {totalItems > 0 && (
+                <span className="absolute -top-1 -right-1 bg-pink-500 text-white text-xs font-bold min-w-[18px] h-[18px] rounded-full flex items-center justify-center">
+                  {totalItems > 99 ? "99+" : totalItems}
+                </span>
+              )}
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -146,6 +163,18 @@ function MyNavbar() {
                 {link.label}
               </motion.a>
             ))}
+            <Link
+              to="/cart"
+              onClick={() => setIsOpen(false)}
+              className="flex items-center justify-center gap-2 text-gray-700 font-bold px-4 py-3 rounded-lg hover:bg-pink-100"
+            >
+              <FaShoppingCart className="text-pink-600" /> Carrito
+              {totalItems > 0 && (
+                <span className="bg-pink-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">
+                  {totalItems}
+                </span>
+              )}
+            </Link>
             {/* Mobile Icons */}
           </motion.div>
         </motion.div>
