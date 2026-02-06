@@ -17,10 +17,12 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 // Registrar servicios de Application
 builder.Services.AddScoped<IProductoService, ProductoService>();
 builder.Services.AddScoped<ICategoriaService, CategoriaService>();
+builder.Services.AddScoped<IPedidoService, PedidoService>();
 
 // Registrar repositorios de Infrastructure
 builder.Services.AddScoped<IProductosRepository, ProductosRepository>();
 builder.Services.AddScoped<ICategoriaRepository, CategoriaRepository>();
+builder.Services.AddScoped<IPedidoRepository, PedidoRepository>();
 
 // Configurar CORS para permitir solicitudes desde el frontend
 builder.Services.AddCors(options =>

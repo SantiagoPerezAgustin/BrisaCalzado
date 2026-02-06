@@ -10,6 +10,7 @@ function getImageSrc(url) {
 }
 
 export default function ProductsGrid({ productos, onView }) {
+  const { addToCart } = useCart();
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {productos.map((producto) => (
